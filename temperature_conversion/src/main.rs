@@ -6,7 +6,13 @@ fn main() {
     println!("2 - Convert Celsius to Fahrenheit");
     println!("Enter your choice (1 or 2): ");
     io::stdin().read_line(&mut input).expect("Failed to read line");
-    let choice: u32 = input.trim().parse().expect("Failed to parse input");
+    let choice: u32 = match input.trim().parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Invalid input! Please enter a number.");
+            return;
+        }
+    };
     match choice {
         1 => convert_fahrenheit_to_celsius(input_value("Enter temperature in Fahrenheit: ")),
         2 => convert_celsius_to_fahrenheit(input_value("Enter temperature in Celsius: ")),
